@@ -8,6 +8,7 @@ const pincodesToSearch = [];
 const districtIdsToSearch = [];
 
 const POLLER_FALLBACK_SLEEP_TIME = 30; //In seconds
+const USER_NOTIFICATION_TIME_DELAY = 30 * 60; //30 minutes
 
 let telegramBot = null;
 
@@ -104,8 +105,8 @@ async function pollByPincode() {
                                         }
                                     }
                                 })
-                                users.forEach(user => {
-                                    sendNotificationToUser(user, center, session);
+                                users.forEach(async user => {
+                                    await sendNotificationToUser(user, center, session);
                                 });
                                 break;
                             case 18:
@@ -117,8 +118,8 @@ async function pollByPincode() {
                                         }
                                     }
                                 })
-                                users.forEach(user => {
-                                    sendNotificationToUser(user, center, session);
+                                users.forEach(async user => {
+                                    await sendNotificationToUser(user, center, session);
                                 });
                                 break;
                         }
@@ -162,8 +163,8 @@ async function pollByDistrictId() {
                                         }
                                     }
                                 })
-                                users.forEach(user => {
-                                    sendNotificationToUser(user, center, session);
+                                users.forEach(async user => {
+                                    await sendNotificationToUser(user, center, session);
                                 });
                                 break;
                             case 18:
@@ -175,8 +176,8 @@ async function pollByDistrictId() {
                                         }
                                     }
                                 })
-                                users.forEach(user => {
-                                    sendNotificationToUser(user, center, session);
+                                users.forEach(async user => {
+                                    await sendNotificationToUser(user, center, session);
                                 });
                                 break;
                         }
@@ -194,6 +195,16 @@ async function pollByDistrictId() {
     }
 }
 
-function sendNotificationToUser(user, center, session) {
-    getTelegramBot().telegram.sendMessage(user.telegramId, `*${center.name}* has *${session.available_capacity}* vacant slots\\. Hurry up\\!`, { parse_mode: "MarkdownV2" })
+async function sendNotificationToUser(user, center, session) {
+    if ((user.lastNotified && DateTime.now().diff(DateTime.fromISO(user.lastNotified), 'minutes') >= 30) || user.lastNotified == null) {
+        getTelegramBot().telegram.sendMessage(user.telegramId, `*${center.name}* has *${session.available_capacity}* vacant slots\\. Hurry up\\!`, { parse_mode: "MarkdownV2" })
+        await prisma.user.update({
+            where: {
+                id: user.id
+            },
+            data: {
+                lastNotified: DateTime.now().toISO()
+            }
+        });
+    }
 }

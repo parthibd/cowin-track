@@ -77,13 +77,14 @@ bot.start(async (ctx) => {
             'Your notification preferences are already saved. Do you want to clear them?',
             Markup.inlineKeyboard([
                 Markup.button.callback('Go ahead!', 'clear_preference'),
-                Markup.button.callback('Let it be!', 'noop_clear_preferences')]))
+                Markup.button.callback('Let it be!', 'noop_clear_preferences')])
+        )
     }
 
     else {
 
         //Create an empty user with associated relation.
-        
+
         await prisma.user.upsert({
             where: {
                 telegramId: ctx.from.id
@@ -95,7 +96,7 @@ bot.start(async (ctx) => {
                 districtId: null,
                 ConversationState: {
                     create: {
-                        conversationStep: null
+                        conversationStep: CONVERSATION_STEPS.NO_INPUT_PRESENT
                     }
                 }
             },
@@ -105,7 +106,7 @@ bot.start(async (ctx) => {
                 districtId: null,
                 ConversationState: {
                     update: {
-                        conversationStep: null
+                        conversationStep: CONVERSATION_STEPS.NO_INPUT_PRESENT
                     }
                 }
             }
@@ -120,11 +121,13 @@ bot.start(async (ctx) => {
         ctx.reply('Please select whether you want to be notified by specific district or pincode.',
             Markup.inlineKeyboard([
                 Markup.button.callback('District', 'notify_by_district'),
-                Markup.button.callback('Pincode', 'notify_by_pincode')]));
+                Markup.button.callback('Pincode', 'notify_by_pincode')])
+        );
     }
 })
 
 bot.action('noop_clear_preferences', async (ctx) => {
+    ctx.answerCbQuery();
     ctx.reply(
         'No problem! \n\n' +
         'You\'re awesome! \n\n')
@@ -162,10 +165,11 @@ bot.action('clear_preference', async (ctx) => {
     ctx.reply(
         'No problem! \n\n' +
         'Let\'s start over! \n\n')
-    ctx.reply('/start')
+    ctx.reply('Please tap /start to begin.');
 })
 
 bot.action('notify_by_district', async (ctx) => {
+    ctx.answerCbQuery();
     await prisma.user.update({
         where: {
             telegramId: ctx.from.id
@@ -182,7 +186,7 @@ bot.action('notify_by_district', async (ctx) => {
 })
 
 bot.action('notify_by_pincode', async (ctx) => {
-
+    ctx.answerCbQuery()
     await prisma.user.update({
         where: {
             telegramId: ctx.from.id
@@ -212,7 +216,7 @@ bot.on('message', async (ctx) => {
     if (user != null)
         switch (user.ConversationState.conversationStep) {
             case CONVERSATION_STEPS.NO_INPUT_PRESENT:
-                console.log("Pass")
+                ctx.reply('Please provide valid input.');
                 break;
             case CONVERSATION_STEPS.INPUT_STATE_NAME:
                 handleStateInput(ctx, user);
@@ -224,7 +228,10 @@ bot.on('message', async (ctx) => {
                 handlePinCodeInput(ctx, user);
                 break;
             case CONVERSATION_STEPS.INPUT_ACQUIRED_SUCCESSFULLY:
-                console.log('Pass');
+                ctx.reply('Please provide valid input.');
+                break;
+            default:
+                ctx.reply('Please provide valid input.');
                 break;
         }
 })
@@ -262,7 +269,8 @@ async function handleStateInput(ctx, user) {
             }
         })
 
-        ctx.reply('Great! Found your state. Please type the name of the district now.')
+        ctx.replyWithMarkdown(`Great! Your state has been set to *${stateInput.trim()}*. Please type the name of the district now.`,{
+        })
 
     } else {
         const searchResult = fuseStates.search(stateInput.trim())
@@ -296,6 +304,7 @@ async function handleDistrictInput(ctx, user) {
             }
         })
 
+        ctx.replyWithMarkdown(`Great! Your district has been set to *${districtInput.trim()}*.`)
         showAgeSelectKeyboard(ctx)
 
     } else {
@@ -343,6 +352,7 @@ function showAgeSelectKeyboard(ctx) {
 
 
 bot.action('45_plus_age_select', async (ctx) => {
+    ctx.answerCbQuery();
     await prisma.user.update({
         where: {
             telegramId: ctx.from.id
@@ -355,6 +365,7 @@ bot.action('45_plus_age_select', async (ctx) => {
     ctx.reply('Preferences saved! You will be notified as soon as the slot opens.Stay tuned!. 😎')
 })
 bot.action('18_plus_age_select', async (ctx) => {
+    ctx.answerCbQuery();
     await prisma.user.update({
         where: {
             telegramId: ctx.from.id
@@ -367,6 +378,7 @@ bot.action('18_plus_age_select', async (ctx) => {
     ctx.reply('Preferences saved! You will be notified as soon as the slot opens.Stay tuned!. 😎')
 })
 bot.action('both_age_select', async (ctx) => {
+    ctx.answerCbQuery();
     await prisma.user.update({
         where: {
             telegramId: ctx.from.id

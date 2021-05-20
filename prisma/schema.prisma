@@ -25,4 +25,5 @@ model User {
   stateId           Int?
   districtId        Int?
   ConversationState ConversationState?
+  lastNotified      DateTime?
 }
