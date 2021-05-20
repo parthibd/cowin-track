@@ -58,6 +58,77 @@ bot.use(Telegraf.log())
 
 bot.start(async (ctx) => {
 
+    const user = await prisma.user.findFirst({
+        where: {
+            telegramId: ctx.from.id,
+            ConversationState: {
+                conversationStep: CONVERSATION_STEPS.INPUT_ACQUIRED_SUCCESSFULLY
+            }
+        },
+        include: {
+            ConversationState: true
+        }
+    })
+
+    if (user != null) {
+        ctx.reply(
+            'Hey there!👋 \n\n' +
+            'Welcome welcome back! \n\n' +
+            'Your notification preferences are already saved. Do you want to clear them?',
+            Markup.inlineKeyboard([
+                Markup.button.callback('Go ahead!', 'clear_preference'),
+                Markup.button.callback('Let it be!', 'noop_clear_preferences')]))
+    }
+
+    else {
+        await prisma.user.upsert({
+            where: {
+                telegramId: ctx.from.id
+            },
+            create: {
+                telegramId: ctx.from.id,
+                pincode: null,
+                stateId: null,
+                districtId: null,
+                ConversationState: {
+                    create: {
+                        conversationStep: null
+                    }
+                }
+            },
+            update: {
+                pincode: null,
+                stateId: null,
+                districtId: null,
+                ConversationState: {
+                    update: {
+                        conversationStep: null
+                    }
+                }
+            }
+        })
+
+        ctx.reply(
+            'Hey there!👋 \n\n' +
+            'Welcome to CowinTrack Bot \n\n' +
+            'I will regularly check for empty slots in your area and will notify you as soon as they become available.\n\n' +
+            'Lets start.')
+
+        ctx.reply('Please select whether you want to be notified by specific district or pincode.',
+            Markup.inlineKeyboard([
+                Markup.button.callback('District', 'notify_by_district'),
+                Markup.button.callback('Pincode', 'notify_by_pincode')]));
+    }
+})
+
+bot.action('noop_clear_preferences', async (ctx) => {
+    ctx.reply(
+        'No problem! \n\n' +
+        'You\'re awesome! \n\n')
+})
+
+bot.action('clear_preference', async (ctx) => {
+
     await prisma.user.upsert({
         where: {
             telegramId: ctx.from.id
@@ -69,7 +140,7 @@ bot.start(async (ctx) => {
             districtId: null,
             ConversationState: {
                 create: {
-                    conversationStep: CONVERSATION_STEPS.NO_INPUT_PRESENT
+                    conversationStep: null
                 }
             }
         },
@@ -79,22 +150,16 @@ bot.start(async (ctx) => {
             districtId: null,
             ConversationState: {
                 update: {
-                    conversationStep: CONVERSATION_STEPS.NO_INPUT_PRESENT
+                    conversationStep: null
                 }
             }
         }
     })
 
     ctx.reply(
-        'Hey there!👋 \n\n' +
-        'Welcome to CowinTrack Bot \n\n' +
-        'I will regularly check for empty slots in your area and will notify you as soon as they become available.\n\n' +
-        'Lets start.')
-
-    ctx.reply('Please select whether you want to be notified by specific district or pincode.',
-        Markup.inlineKeyboard([
-            Markup.button.callback('District', 'notify_by_district'),
-            Markup.button.callback('Pincode', 'notify_by_pincode')]));
+        'No problem! \n\n' +
+        'Let\'s start over! \n\n')
+    ctx.reply('/start')
 })
 
 bot.action('notify_by_district', async (ctx) => {
