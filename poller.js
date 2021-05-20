@@ -100,12 +100,12 @@ async function pollByPincode() {
                                     where: {
                                         pincode: element.pincode,
                                         agePreference: {
-                                            in: [AGE_PREFERENCE.EIGHTEEN_PLUS]
+                                            in: [AGE_PREFERENCE.FORTYFIVE_PLUS]
                                         }
                                     }
                                 })
                                 users.forEach(user => {
-                                    getTelegramBot().telegram.sendMessage(user.telegramId, "Center found!")
+                                    sendNotificationToUser(user,center,session);
                                 });
                                 break;
                             case 18:
@@ -113,12 +113,12 @@ async function pollByPincode() {
                                     where: {
                                         pincode: element.pincode,
                                         agePreference: {
-                                            in: [AGE_PREFERENCE.FORTYFIVE_PLUS]
+                                            in: [AGE_PREFERENCE.EIGHTEEN_PLUS]
                                         }
                                     }
                                 })
                                 users.forEach(user => {
-                                    getTelegramBot().telegram.sendMessage(user.telegramId, "Center found!")
+                                    sendNotificationToUser(user,center,session);
                                 });
                                 break
                             default:
@@ -131,7 +131,7 @@ async function pollByPincode() {
                                     }
                                 })
                                 users.forEach(user => {
-                                    getTelegramBot().telegram.sendMessage(user.telegramId, "Center found!")
+                                    sendNotificationToUser(user,center,session);
                                 });
                                 break
                         }
@@ -171,12 +171,12 @@ async function pollByDistrictId() {
                                     where: {
                                         districtId: element.districtId,
                                         agePreference: {
-                                            in: [AGE_PREFERENCE.EIGHTEEN_PLUS]
+                                            in: [AGE_PREFERENCE.FORTYFIVE_PLUS]
                                         }
                                     }
                                 })
                                 users.forEach(user => {
-                                    getTelegramBot().telegram.sendMessage(user.telegramId, "Center found!")
+                                    sendNotificationToUser(user,center,session);
                                 });
                                 break;
                             case 18:
@@ -184,14 +184,14 @@ async function pollByDistrictId() {
                                     where: {
                                         districtId: element.districtId,
                                         agePreference: {
-                                            in: [AGE_PREFERENCE.FORTYFIVE_PLUS]
+                                            in: [AGE_PREFERENCE.EIGHTEEN_PLUS]
                                         }
                                     }
                                 })
                                 users.forEach(user => {
-                                    getTelegramBot().telegram.sendMessage(user.telegramId, "Center found!")
+                                    sendNotificationToUser(user,center,session);
                                 });
-                                break
+                                break;
                             default:
                                 users = await prisma.user.findMany({
                                     where: {
@@ -202,9 +202,9 @@ async function pollByDistrictId() {
                                     }
                                 })
                                 users.forEach(user => {
-                                    getTelegramBot().telegram.sendMessage(user.telegramId, "Center found!")
+                                    sendNotificationToUser(user,center,session);
                                 });
-                                break
+                                break;
                         }
                 })
             });
@@ -218,4 +218,8 @@ async function pollByDistrictId() {
             pollByDistrictId();
         }, POLLER_FALLBACK_SLEEP_TIME * 1000)
     }
+}
+
+function sendNotificationToUser(user,center,session) {
+    getTelegramBot().telegram.sendMessage(user.telegramId, `*${center.name}* has *${session.available_capacity}* vacant slots\\. Hurry up\\!`, { parse_mode: "MarkdownV2" })
 }

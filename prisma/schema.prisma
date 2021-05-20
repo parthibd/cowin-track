@@ -20,7 +20,7 @@ model ConversationState {
 model User {
   id                Int                @id @default(autoincrement())
   telegramId        Int                @unique
-  agePreference     Int?
+  agePreference     String?
   pincode           Int?
   stateId           Int?
   districtId        Int?

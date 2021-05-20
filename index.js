@@ -64,6 +64,9 @@ bot.start(async (ctx) => {
         },
         create: {
             telegramId: ctx.from.id,
+            pincode: null,
+            stateId: null,
+            districtId: null,
             ConversationState: {
                 create: {
                     conversationStep: CONVERSATION_STEPS.NO_INPUT_PRESENT
@@ -71,6 +74,9 @@ bot.start(async (ctx) => {
             }
         },
         update: {
+            pincode: null,
+            stateId: null,
+            districtId: null,
             ConversationState: {
                 update: {
                     conversationStep: CONVERSATION_STEPS.NO_INPUT_PRESENT
@@ -165,7 +171,6 @@ process.once('SIGTERM', () => bot.stop('SIGTERM'))
 
 async function handleStateInput(ctx, user) {
 
-    ctx.sendMessage()
     const stateInput = ctx.message.text
     let exactMatch = false;
     const stateMatch = _.find(states, function (data) {
