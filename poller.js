@@ -100,12 +100,12 @@ async function pollByPincode() {
                                     where: {
                                         pincode: element.pincode,
                                         agePreference: {
-                                            in: [AGE_PREFERENCE.FORTYFIVE_PLUS]
+                                            in: [AGE_PREFERENCE.FORTYFIVE_PLUS, AGE_PREFERENCE.BOTH]
                                         }
                                     }
                                 })
                                 users.forEach(user => {
-                                    sendNotificationToUser(user,center,session);
+                                    sendNotificationToUser(user, center, session);
                                 });
                                 break;
                             case 18:
@@ -113,27 +113,14 @@ async function pollByPincode() {
                                     where: {
                                         pincode: element.pincode,
                                         agePreference: {
-                                            in: [AGE_PREFERENCE.EIGHTEEN_PLUS]
+                                            in: [AGE_PREFERENCE.EIGHTEEN_PLUS, AGE_PREFERENCE.BOTH]
                                         }
                                     }
                                 })
                                 users.forEach(user => {
-                                    sendNotificationToUser(user,center,session);
+                                    sendNotificationToUser(user, center, session);
                                 });
-                                break
-                            default:
-                                users = await prisma.user.findMany({
-                                    where: {
-                                        pincode: element.pincode,
-                                        agePreference: {
-                                            in: [AGE_PREFERENCE.BOTH]
-                                        }
-                                    }
-                                })
-                                users.forEach(user => {
-                                    sendNotificationToUser(user,center,session);
-                                });
-                                break
+                                break;
                         }
                 })
             });
@@ -171,12 +158,12 @@ async function pollByDistrictId() {
                                     where: {
                                         districtId: element.districtId,
                                         agePreference: {
-                                            in: [AGE_PREFERENCE.FORTYFIVE_PLUS]
+                                            in: [AGE_PREFERENCE.FORTYFIVE_PLUS, AGE_PREFERENCE.BOTH]
                                         }
                                     }
                                 })
                                 users.forEach(user => {
-                                    sendNotificationToUser(user,center,session);
+                                    sendNotificationToUser(user, center, session);
                                 });
                                 break;
                             case 18:
@@ -184,25 +171,12 @@ async function pollByDistrictId() {
                                     where: {
                                         districtId: element.districtId,
                                         agePreference: {
-                                            in: [AGE_PREFERENCE.EIGHTEEN_PLUS]
+                                            in: [AGE_PREFERENCE.EIGHTEEN_PLUS, AGE_PREFERENCE.BOTH]
                                         }
                                     }
                                 })
                                 users.forEach(user => {
-                                    sendNotificationToUser(user,center,session);
-                                });
-                                break;
-                            default:
-                                users = await prisma.user.findMany({
-                                    where: {
-                                        districtId: element.districtId,
-                                        agePreference: {
-                                            in: [AGE_PREFERENCE.BOTH]
-                                        }
-                                    }
-                                })
-                                users.forEach(user => {
-                                    sendNotificationToUser(user,center,session);
+                                    sendNotificationToUser(user, center, session);
                                 });
                                 break;
                         }
@@ -220,6 +194,6 @@ async function pollByDistrictId() {
     }
 }
 
-function sendNotificationToUser(user,center,session) {
+function sendNotificationToUser(user, center, session) {
     getTelegramBot().telegram.sendMessage(user.telegramId, `*${center.name}* has *${session.available_capacity}* vacant slots\\. Hurry up\\!`, { parse_mode: "MarkdownV2" })
 }
