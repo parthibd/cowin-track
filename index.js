@@ -81,6 +81,9 @@ bot.start(async (ctx) => {
     }
 
     else {
+
+        //Create an empty user with associated relation.
+        
         await prisma.user.upsert({
             where: {
                 telegramId: ctx.from.id
