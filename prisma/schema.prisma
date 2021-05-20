@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model ConversationState {
+  id               Int     @id @default(autoincrement())
+  userId           Int     @unique
+  conversationStep String?
+  User             User    @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id                Int                @id @default(autoincrement())
+  telegramId        Int                @unique
+  agePreference     Int?
+  pincode           Int?
+  stateId           Int?
+  districtId        Int?
+  ConversationState ConversationState?
+}

@@ -1,0 +1,902 @@
+{
+    "centers": [
+        {
+            "center_id": 648692,
+            "name": "Yognilayam Seva Bharati",
+            "address": "Abhoypur, North Guwahati",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "North Guwahati",
+            "pincode": 781031,
+            "lat": 26,
+            "long": 91,
+            "from": "09:00:00",
+            "to": "17:00:00",
+            "fee_type": "Paid",
+            "sessions": [
+                {
+                    "session_id": "b6e4e37e-4dc0-447a-9bc6-c2774d29562e",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVAXIN",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-05:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                },
+                {
+                    "session_id": "29edebba-eaef-4a92-a438-e8c10096b7a2",
+                    "date": "26-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVAXIN",
+                    "slots": [
+                        "12:00PM-01:00PM",
+                        "01:00PM-02:00PM",
+                        "02:00PM-03:00PM",
+                        "03:00PM-04:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 696414,
+            "name": "Rampur Higher Secondary School",
+            "address": "Rampur",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "Rampur",
+            "pincode": 781122,
+            "lat": 26,
+            "long": 91,
+            "from": "09:00:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "5de94be4-5a6d-4d6a-b671-246240c75d35",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-10:00AM",
+                        "10:00AM-11:00AM",
+                        "11:00AM-12:00PM",
+                        "12:00PM-02:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 187606,
+            "name": "Dhupguri Sd",
+            "address": "Sd Dhupgiri Sukuniapara Po Singra District Kamrup",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "Boko",
+            "pincode": 781135,
+            "lat": 25,
+            "long": 91,
+            "from": "09:00:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "12bc6ad8-542c-4728-b3db-8209cb14980d",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-10:00AM",
+                        "10:00AM-11:00AM",
+                        "11:00AM-12:00PM",
+                        "12:00PM-02:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 696512,
+            "name": "Palashbari Boys High School",
+            "address": "Palashbari",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "Uparhali",
+            "pincode": 781128,
+            "lat": 26,
+            "long": 91,
+            "from": "09:00:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "a66dd1b0-743b-4f8b-912e-38dbbc09afaf",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-10:00AM",
+                        "10:00AM-11:00AM",
+                        "11:00AM-12:00PM",
+                        "12:00PM-02:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 695605,
+            "name": "Changsari Vidyapeeth H.School",
+            "address": "Changsari Kamrup",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "North Guwahati",
+            "pincode": 781101,
+            "lat": 26,
+            "long": 91,
+            "from": "09:00:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "ef60b99f-d15f-46ff-b100-ae9184c0d878",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-10:00AM",
+                        "10:00AM-11:00AM",
+                        "11:00AM-12:00PM",
+                        "12:00PM-02:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 139326,
+            "name": "Loharghat Sd",
+            "address": "Sd Loharghat Vpo Loharghat Ps Palashbari Mirza",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "Rampur",
+            "pincode": 781120,
+            "lat": 0,
+            "long": 0,
+            "from": "09:00:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "aa169b43-9960-4787-98de-f5d5385da40c",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-10:00AM",
+                        "10:00AM-11:00AM",
+                        "11:00AM-12:00PM",
+                        "12:00PM-02:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 122852,
+            "name": "Chamaria Sd",
+            "address": "Sd Chamaria Ps Boko District Kamrup",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "Nagarbera",
+            "pincode": 781136,
+            "lat": 26,
+            "long": 91,
+            "from": "07:00:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "db970fa9-d4d5-4256-8711-bad8ac5a728b",
+                    "date": "20-05-2021",
+                    "available_capacity": 10,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "07:00AM-09:00AM",
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-02:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 10
+                }
+            ]
+        },
+        {
+            "center_id": 684392,
+            "name": "Rangia CHC COVAXIN",
+            "address": "Rangia",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "Rangia",
+            "pincode": 781354,
+            "lat": 26,
+            "long": 91,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "8cfdff19-6714-45cd-b674-6929cd01b1a9",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVAXIN",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 696515,
+            "name": "Upardani H.S School",
+            "address": "VPO Rani Kamrup",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "Azara",
+            "pincode": 781131,
+            "lat": 26,
+            "long": 91,
+            "from": "09:00:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "78281e07-cbf3-4ccd-bd87-77cb25036825",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-10:00AM",
+                        "10:00AM-11:00AM",
+                        "11:00AM-12:00PM",
+                        "12:00PM-02:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 705143,
+            "name": "AnandaRam Upper Primary School",
+            "address": "Soul Gobindo North Guwahati",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "North Guwahati",
+            "pincode": 781030,
+            "lat": 26,
+            "long": 91,
+            "from": "09:00:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "d245844d-cc53-4330-beea-ce118d83bfff",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-10:00AM",
+                        "10:00AM-11:00AM",
+                        "11:00AM-12:00PM",
+                        "12:00PM-02:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 698996,
+            "name": "Halogaon MV School",
+            "address": "Halogaon Kamrup",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "Sualkuchi",
+            "pincode": 781103,
+            "lat": 26,
+            "long": 91,
+            "from": "09:00:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "99a13e13-a1e4-4817-9953-7ece204a2a72",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-10:00AM",
+                        "10:00AM-11:00AM",
+                        "11:00AM-12:00PM",
+                        "12:00PM-02:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 122399,
+            "name": "Chaygaon BPHC",
+            "address": "Chhaygaon Vpo Ps Chhayagaon",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "Chaygaon",
+            "pincode": 781124,
+            "lat": 26,
+            "long": 91,
+            "from": "07:00:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "37034a22-4c33-4432-8607-ff364b6cbe14",
+                    "date": "20-05-2021",
+                    "available_capacity": 5,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "07:00AM-09:00AM",
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-02:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 5
+                }
+            ]
+        },
+        {
+            "center_id": 697038,
+            "name": "Sualkuchi SBMS College",
+            "address": "P. K. Road Sualkuchi -Bamundi Rd Sualkuchi",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "Sualkuchi",
+            "pincode": 781103,
+            "lat": 26,
+            "long": 91,
+            "from": "09:00:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "81dac2fe-b0dc-4333-b610-c0ca7e334840",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-10:00AM",
+                        "10:00AM-11:00AM",
+                        "11:00AM-12:00PM",
+                        "12:00PM-02:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 696095,
+            "name": "Dharapur HS School",
+            "address": "DharapurAzara",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "Azara",
+            "pincode": 781017,
+            "lat": 26,
+            "long": 91,
+            "from": "09:00:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "ddbfeb93-5367-482e-b40c-aa4233d89e3a",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-10:00AM",
+                        "10:00AM-11:00AM",
+                        "11:00AM-12:00PM",
+                        "12:00PM-02:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 701126,
+            "name": "Commandant-175 BN - CRPF -RANI",
+            "address": "Rani Industrial Area Po.Azara Kamrup",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "Azara",
+            "pincode": 781017,
+            "lat": 26,
+            "long": 91,
+            "from": "09:00:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "e64dc32a-3e38-4d39-951c-ddb86a4e1484",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-10:00AM",
+                        "10:00AM-11:00AM",
+                        "11:00AM-12:00PM",
+                        "12:00PM-02:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 696115,
+            "name": "Saraighat High School",
+            "address": "Amingaon Hajo Chowk",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "North Guwahati",
+            "pincode": 781031,
+            "lat": 26,
+            "long": 91,
+            "from": "09:00:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "3b26a09a-9744-4904-8b6a-ad4fed5826dd",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-10:00AM",
+                        "10:00AM-11:00AM",
+                        "11:00AM-12:00PM",
+                        "12:00PM-02:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 685260,
+            "name": "Azara PHC COVAXIN",
+            "address": "Azara Po Azara Kamrup M",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "Azara",
+            "pincode": 781017,
+            "lat": 26,
+            "long": 91,
+            "from": "07:00:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "a9fac402-892a-4acf-8bff-56fabb29019e",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVAXIN",
+                    "slots": [
+                        "07:00AM-09:00AM",
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-02:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 187521,
+            "name": "Boko Bphc",
+            "address": "Phc Boko Vpo Ps Boko District Kamrup",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "Boko",
+            "pincode": 781123,
+            "lat": 25,
+            "long": 91,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "b2f5ea60-a27a-4dca-8e02-840f9cf53fb9",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 696376,
+            "name": "Bihdia Anchalik High School",
+            "address": "Bihdia Kamrup",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "Bihdia",
+            "pincode": 781381,
+            "lat": 26,
+            "long": 91,
+            "from": "09:00:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "93d74cb5-0650-44df-ab91-82eee79e5aaf",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-10:00AM",
+                        "10:00AM-11:00AM",
+                        "11:00AM-12:00PM",
+                        "12:00PM-02:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 696103,
+            "name": "Yognilayam 18 Seva Bharati",
+            "address": "Abhoypur North Guwahati",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "North Guwahati",
+            "pincode": 781031,
+            "lat": 26,
+            "long": 91,
+            "from": "09:00:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "ad0e1b63-e809-4fff-9507-f29601fbeeb3",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-10:00AM",
+                        "10:00AM-11:00AM",
+                        "11:00AM-12:00PM",
+                        "12:00PM-02:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 696511,
+            "name": "Uparhali H. S. School",
+            "address": "Bijoyananda Uparhali",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "Uparhali",
+            "pincode": 781122,
+            "lat": 26,
+            "long": 91,
+            "from": "09:00:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "a7f04fdd-7250-4bdd-b2d1-03720322a516",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-10:00AM",
+                        "10:00AM-11:00AM",
+                        "11:00AM-12:00PM",
+                        "12:00PM-02:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 690532,
+            "name": "Halogaon MPHC Covaxin",
+            "address": "Halogaon Kamrup",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "Sualkuchi",
+            "pincode": 781103,
+            "lat": 26,
+            "long": 91,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "21f33af8-940f-49fd-b450-7d60a5c847c7",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVAXIN",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 705133,
+            "name": "Mirza Girls High School",
+            "address": "Mirza Kamrup",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "Uparhali",
+            "pincode": 781125,
+            "lat": 26,
+            "long": 91,
+            "from": "09:00:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "2fe0aa68-76bf-4571-b300-c8b90f1b75fa",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-10:00AM",
+                        "10:00AM-11:00AM",
+                        "11:00AM-12:00PM",
+                        "12:00PM-02:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 688434,
+            "name": "Sualkuchi CHC Covaxin",
+            "address": "PO.Sualkuchi Kamrup",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "Sualkuchi",
+            "pincode": 781103,
+            "lat": 26,
+            "long": 91,
+            "from": "07:00:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "cafa89fb-ce6e-4ea5-92f3-9d365d6c839d",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVAXIN",
+                    "slots": [
+                        "07:00AM-09:00AM",
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-02:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 106884,
+            "name": "Tularam Bafna Kamrup DH",
+            "address": "Trb Hospital Amingaon Guwahati",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "North Guwahati",
+            "pincode": 781031,
+            "lat": 26,
+            "long": 91,
+            "from": "09:00:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "4c0cfd00-abb2-44d5-bd1f-30ac5f565ca8",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-10:00AM",
+                        "10:00AM-11:00AM",
+                        "11:00AM-12:00PM",
+                        "12:00PM-02:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 695549,
+            "name": "Rajdhar Borah HSSchool",
+            "address": "Azara",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "Azara",
+            "pincode": 781017,
+            "lat": 26,
+            "long": 91,
+            "from": "09:00:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "144bb102-834a-4f09-81f1-1c8d65e6083d",
+                    "date": "20-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 18,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-10:00AM",
+                        "10:00AM-11:00AM",
+                        "11:00AM-12:00PM",
+                        "12:00PM-02:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        },
+        {
+            "center_id": 122735,
+            "name": "Nagarbera Bphc",
+            "address": "Phc Nagarbera Vpo Ps Nagarbera District Kamrup R",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "Nagarbera",
+            "pincode": 781127,
+            "lat": 26,
+            "long": 91,
+            "from": "07:00:00",
+            "to": "14:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "bce81959-eb91-492e-924f-4f6dd20650b7",
+                    "date": "20-05-2021",
+                    "available_capacity": 20,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "07:00AM-09:00AM",
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-02:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 20
+                },
+                {
+                    "session_id": "c3c11858-c9d7-44f0-8bff-b5d3d5ddb1a8",
+                    "date": "22-05-2021",
+                    "available_capacity": 10,
+                    "min_age_limit": 45,
+                    "vaccine": "COVISHIELD",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 10
+                }
+            ]
+        },
+        {
+            "center_id": 690585,
+            "name": "Garal Mphc Covaxin",
+            "address": "Bhattapara,Garal,Azara",
+            "state_name": "Assam",
+            "district_name": "Kamrup Rural",
+            "block_name": "Azara",
+            "pincode": 781017,
+            "lat": 26,
+            "long": 91,
+            "from": "09:00:00",
+            "to": "18:00:00",
+            "fee_type": "Free",
+            "sessions": [
+                {
+                    "session_id": "ed3cd0f6-37f7-495d-9c5a-94aecfabef99",
+                    "date": "25-05-2021",
+                    "available_capacity": 0,
+                    "min_age_limit": 45,
+                    "vaccine": "COVAXIN",
+                    "slots": [
+                        "09:00AM-11:00AM",
+                        "11:00AM-01:00PM",
+                        "01:00PM-03:00PM",
+                        "03:00PM-06:00PM"
+                    ],
+                    "available_capacity_dose1": 0,
+                    "available_capacity_dose2": 0
+                }
+            ]
+        }
+    ]
+}
