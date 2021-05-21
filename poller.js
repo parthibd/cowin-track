@@ -13,6 +13,8 @@ const USER_NOTIFICATION_TIME_DELAY = 30 * 60; //30 minutes
 const MAX_REQUESTS_LIMIT = 100;
 const MAX_REQUEST_LIMIT_EXHAUSTION_TIME = 5 * 60; //5 minutes
 
+let pollerTimeoutSet = false;
+
 const AGE_PREFERENCE_PRISMA_CONDITION = {
     45: [AGE_PREFERENCE.FORTYFIVE_PLUS, AGE_PREFERENCE.BOTH],
     18: [AGE_PREFERENCE.EIGHTEEN_PLUS, AGE_PREFERENCE.BOTH]
@@ -84,23 +86,33 @@ export async function pollData() {
         requestEndTime = DateTime.now()
     } catch (error) {
         requestEndTime = DateTime.now()
-        setTimeout(async () => {
-            await pollData()
-        }, calculateTimeout() * 1000)
+        if (!pollerTimeoutSet) {
+            pollerTimeoutSet = true;
+            setTimeout(async () => {
+                pollerTimeoutSet = false;
+                await pollData()
+            }, calculateTimeout(error.response.status == 403) * 1000)
+        }
     } finally {
-        setTimeout(async () => {
-            await pollData()
-        }, calculateTimeout() * 1000)
+        if (!pollerTimeoutSet) {
+            pollerTimeoutSet = true;
+            setTimeout(async () => {
+                pollerTimeoutSet = false;
+                await pollData()
+            }, calculateTimeout() * 1000)
+        }
     }
 
 }
 
-function calculateTimeout() {
+function calculateTimeout(is403 = false) {
     const timeDelta = requestEndTime.diff(requestStartTime, 'seconds').seconds;
     let timeout = POLLER_FALLBACK_SLEEP_TIME;
 
-    if (timeDelta > MAX_REQUEST_LIMIT_EXHAUSTION_TIME)
-        timeout = MAX_REQUEST_LIMIT_EXHAUSTION_TIME - timeDelta - 60; // we add an addition one minute 
+    if ((timeDelta > MAX_REQUEST_LIMIT_EXHAUSTION_TIME) && (requestCount == MAX_REQUESTS_LIMIT))
+        timeout = MAX_REQUEST_LIMIT_EXHAUSTION_TIME - timeDelta + 60; // we add an addition one minute 
+    if (is403)
+        timeout = MAX_REQUEST_LIMIT_EXHAUSTION_TIME + 60
     return timeout;
 }
 
@@ -118,6 +130,7 @@ async function pollByPincode() {
             lastElement = element;
             let centers = await searchCalendarByPin(element.pincode, currentDate)
             ++requestCount;
+            console.log(`Last request count: ${requestCount}`)
             let users = [];
 
             centers.forEach(center => {
@@ -142,9 +155,8 @@ async function pollByPincode() {
     }
     catch (exception) {
         pincodesToSearch.push(lastElement);
-        console.log(exception);
+        throw exception;
     }
-
 }
 
 async function pollByDistrictId() {
@@ -160,6 +172,7 @@ async function pollByDistrictId() {
             lastElement = element;
             let centers = await searchCalendarByDistrict(element.districtId, currentDate)
             ++requestCount;
+            console.log(`Last request count: ${requestCount}`)
             let users = [];
 
             centers.forEach(center => {
@@ -183,7 +196,7 @@ async function pollByDistrictId() {
     }
     catch (exception) {
         districtIdsToSearch.push(lastElement);
-        console.log(exception);
+        throw exception;
     }
 }
 
