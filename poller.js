@@ -10,6 +10,18 @@ const districtIdsToSearch = [];
 const POLLER_FALLBACK_SLEEP_TIME = 30; //In seconds
 const USER_NOTIFICATION_TIME_DELAY = 30 * 60; //30 minutes
 
+const MAX_REQUESTS_LIMIT = 100;
+const MAX_REQUEST_LIMIT_EXHAUSTION_TIME = 5 * 60; //5 minutes
+
+const AGE_PREFERENCE_PRISMA_CONDITION = {
+    45: [AGE_PREFERENCE.FORTYFIVE_PLUS, AGE_PREFERENCE.BOTH],
+    18: [AGE_PREFERENCE.EIGHTEEN_PLUS, AGE_PREFERENCE.BOTH]
+};
+
+let requestCount = 0;
+let requestStartTime = null;
+let requestEndTime = null;
+
 let telegramBot = null;
 
 const prisma = new PrismaClient()
@@ -67,16 +79,29 @@ export async function pollData() {
     }
 
     try {
+        requestStartTime = DateTime.now()
         await Promise.all([pollByPincode(), pollByDistrictId()])
-        setTimeout(async () => {
-            await pollData()
-        }, POLLER_FALLBACK_SLEEP_TIME * 1000)
+        requestEndTime = DateTime.now()
     } catch (error) {
+        requestEndTime = DateTime.now()
         setTimeout(async () => {
             await pollData()
-        }, POLLER_FALLBACK_SLEEP_TIME * 1000)
+        }, calculateTimeout() * 1000)
+    } finally {
+        setTimeout(async () => {
+            await pollData()
+        }, calculateTimeout() * 1000)
     }
 
+}
+
+function calculateTimeout() {
+    const timeDelta = requestEndTime.diff(requestStartTime, 'seconds');
+    let timeout = POLLER_FALLBACK_SLEEP_TIME;
+
+    if (timeDelta < MAX_REQUEST_LIMIT_EXHAUSTION_TIME)
+        timeout = MAX_REQUEST_LIMIT_EXHAUSTION_TIME - timeDelta - 60; // we add an addition one minute 
+    return timeout;
 }
 
 async function pollByPincode() {
@@ -87,53 +112,37 @@ async function pollByPincode() {
 
     try {
         for (let i = 0; i < count; ++i) {
+            if (requestCount == MAX_REQUESTS_LIMIT)
+                break;
             const element = pincodesToSearch.shift();
             lastElement = element;
             let centers = await searchCalendarByPin(element.pincode, currentDate)
+            ++requestCount;
             let users = [];
 
             centers.forEach(center => {
                 center.sessions.forEach(async (session) => {
-                    if (session.available_capacity)
-                        switch (session.min_age_limit) {
-                            case 45:
-                                users = await prisma.user.findMany({
-                                    where: {
-                                        pincode: element.pincode,
-                                        agePreference: {
-                                            in: [AGE_PREFERENCE.FORTYFIVE_PLUS, AGE_PREFERENCE.BOTH]
-                                        }
-                                    }
-                                })
-                                users.forEach(async user => {
-                                    await sendNotificationToUser(user, center, session);
-                                });
-                                break;
-                            case 18:
-                                users = await prisma.user.findMany({
-                                    where: {
-                                        pincode: element.pincode,
-                                        agePreference: {
-                                            in: [AGE_PREFERENCE.EIGHTEEN_PLUS, AGE_PREFERENCE.BOTH]
-                                        }
-                                    }
-                                })
-                                users.forEach(async user => {
-                                    await sendNotificationToUser(user, center, session);
-                                });
-                                break;
-                        }
+                    if (session.available_capacity) {
+                        users = await prisma.user.findMany({
+                            where: {
+                                pincode: element.pincode,
+                                agePreference: {
+                                    in: AGE_PREFERENCE_PRISMA_CONDITION[session.min_age_limit]
+                                }
+                            }
+                        })
+                        users.forEach(async user => {
+                            await sendNotificationToUser(user, center, session);
+                        });
+                    }
                 })
             });
-
 
         }
     }
     catch (exception) {
-        pincodesToSearch.push(element);
-        setTimeout(() => {
-            pollByPincode();
-        }, POLLER_FALLBACK_SLEEP_TIME * 1000)
+        pincodesToSearch.push(lastElement);
+        console.log(exception);
     }
 
 }
@@ -145,66 +154,51 @@ async function pollByDistrictId() {
 
     try {
         for (let i = 0; i < count; ++i) {
+            if (requestCount == MAX_REQUESTS_LIMIT)
+                break;
             const element = districtIdsToSearch.shift();
             lastElement = element;
             let centers = await searchCalendarByDistrict(element.districtId, currentDate)
+            ++requestCount;
             let users = [];
 
             centers.forEach(center => {
                 center.sessions.forEach(async (session) => {
-                    if (session.available_capacity)
-                        switch (session.min_age_limit) {
-                            case 45:
-                                users = await prisma.user.findMany({
-                                    where: {
-                                        districtId: element.districtId,
-                                        agePreference: {
-                                            in: [AGE_PREFERENCE.FORTYFIVE_PLUS, AGE_PREFERENCE.BOTH]
-                                        }
-                                    }
-                                })
-                                users.forEach(async user => {
-                                    await sendNotificationToUser(user, center, session);
-                                });
-                                break;
-                            case 18:
-                                users = await prisma.user.findMany({
-                                    where: {
-                                        districtId: element.districtId,
-                                        agePreference: {
-                                            in: [AGE_PREFERENCE.EIGHTEEN_PLUS, AGE_PREFERENCE.BOTH]
-                                        }
-                                    }
-                                })
-                                users.forEach(async user => {
-                                    await sendNotificationToUser(user, center, session);
-                                });
-                                break;
-                        }
+                    if (session.available_capacity) {
+                        users = await prisma.user.findMany({
+                            where: {
+                                districtId: element.districtId,
+                                agePreference: {
+                                    in: AGE_PREFERENCE_PRISMA_CONDITION[session.min_age_limit]
+                                }
+                            }
+                        })
+                        users.forEach(async user => {
+                            await sendNotificationToUser(user, center, session);
+                        });
+                    }
                 })
             });
-
-
         }
     }
     catch (exception) {
-        pincodesToSearch.push(element);
-        setTimeout(() => {
-            pollByDistrictId();
-        }, POLLER_FALLBACK_SLEEP_TIME * 1000)
+        districtIdsToSearch.push(lastElement);
+        console.log(exception);
     }
 }
 
 async function sendNotificationToUser(user, center, session) {
-    if ((user.lastNotified && DateTime.now().diff(DateTime.fromISO(user.lastNotified), 'minutes') >= 30) || user.lastNotified == null) {
-        getTelegramBot().telegram.sendMessage(user.telegramId, `*${center.name}* has *${session.available_capacity}* vacant slots\\. Hurry up\\!`, { parse_mode: "MarkdownV2" })
-        await prisma.user.update({
-            where: {
-                id: user.id
-            },
-            data: {
-                lastNotified: DateTime.now().toISO()
-            }
-        });
-    }
+   
+    // if ((user.lastNotified && DateTime.now().diff(DateTime.fromISO(user.lastNotified), 'seconds') >= USER_NOTIFICATION_TIME_DELAY) || user.lastNotified == null) {
+    // }
+
+    getTelegramBot().telegram.sendMessage(user.telegramId, `*${center.name}* has *${session.available_capacity}* vacant slots\\. Hurry up\\!`, { parse_mode: "MarkdownV2" })
+    await prisma.user.update({
+        where: {
+            id: user.id
+        },
+        data: {
+            lastNotified: DateTime.now().toISO()
+        }
+    });
 }
