@@ -7,30 +7,12 @@ import { Telegraf, Markup } from 'telegraf'
 import _ from 'lodash'
 import pincodeDirectory from 'india-pincode-lookup'
 import { setTelegramBot, pollData } from './poller.js'
-import { AGE_PREFERENCE } from './constants.js'
+import { AGE_PREFERENCE, optionsDistrictsSearch, optionsStatesSearch, CONVERSATION_STEPS } from './constants.js'
 const { PrismaClient } = prismaPackage
 
 const prisma = new PrismaClient()
 
 dotenv.config()
-
-const optionsStatesSearch = {
-    isCaseSensitive: false,
-    includeScore: true,
-    shouldSort: true,
-    keys: [
-        "state_name"
-    ]
-};
-
-const optionsDistrictsSearch = {
-    isCaseSensitive: false,
-    includeScore: true,
-    shouldSort: true,
-    keys: [
-        "district_name"
-    ]
-};
 
 const fuseStates = new Fuse(states, optionsStatesSearch);
 const fuseDistricts = new Fuse(districts, optionsDistrictsSearch);
@@ -39,15 +21,6 @@ const fuseDistricts = new Fuse(districts, optionsDistrictsSearch);
 const token = process.env.BOT_TOKEN
 if (token === undefined) {
     throw new Error('BOT_TOKEN must be provided!')
-}
-
-const CONVERSATION_STEPS = {
-    INPUT_STATE_NAME: 'INPUT_STATE_NAME',
-    INPUT_DISTRICT_NAME: 'INPUT_DISTRICT_NAME',
-    INPUT_PINCODE: 'INPUT_PINCODE',
-    INPUT_AGE: 'INPUT_AGE',
-    INPUT_ACQUIRED_SUCCESSFULLY: 'INPUT_ACQUIRED_SUCCESSFULLY',
-    NO_INPUT_PRESENT: 'NO_INPUT_PRESENT'
 }
 
 const bot = new Telegraf(token)

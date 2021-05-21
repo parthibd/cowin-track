@@ -1,4 +1,9 @@
-import { AGE_PREFERENCE } from './constants.js'
+import {
+    POLLER_FALLBACK_SLEEP_TIME,
+    MAX_REQUESTS_LIMIT,
+    MAX_REQUEST_LIMIT_EXHAUSTION_TIME,
+    AGE_PREFERENCE_PRISMA_CONDITION
+} from './constants.js'
 import { DateTime } from 'luxon'
 import prismaPackage from '@prisma/client'
 import { searchCalendarByDistrict, searchCalendarByPin } from './cowin-api.js';
@@ -7,18 +12,7 @@ const { PrismaClient } = prismaPackage
 const pincodesToSearch = [];
 const districtIdsToSearch = [];
 
-const POLLER_FALLBACK_SLEEP_TIME = 30; //In seconds
-const USER_NOTIFICATION_TIME_DELAY = 30 * 60; //30 minutes
-
-const MAX_REQUESTS_LIMIT = 100;
-const MAX_REQUEST_LIMIT_EXHAUSTION_TIME = 5 * 60; //5 minutes
-
 let pollerTimeoutSet = false;
-
-const AGE_PREFERENCE_PRISMA_CONDITION = {
-    45: [AGE_PREFERENCE.FORTYFIVE_PLUS, AGE_PREFERENCE.BOTH],
-    18: [AGE_PREFERENCE.EIGHTEEN_PLUS, AGE_PREFERENCE.BOTH]
-};
 
 let requestCount = 0;
 let requestStartTime = null;
@@ -86,12 +80,12 @@ export async function pollData() {
         requestEndTime = DateTime.now()
     } catch (error) {
         requestEndTime = DateTime.now()
-        
+
         /*
         pollerTimeoutSet prevents calling setTimeout multiple times preventing poller from 
         being instatiated multiple times
         */
-       
+
         if (!pollerTimeoutSet) {
             pollerTimeoutSet = true;
             setTimeout(async () => {
