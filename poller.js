@@ -96,10 +96,10 @@ export async function pollData() {
 }
 
 function calculateTimeout() {
-    const timeDelta = requestEndTime.diff(requestStartTime, 'seconds');
+    const timeDelta = requestEndTime.diff(requestStartTime, 'seconds').seconds;
     let timeout = POLLER_FALLBACK_SLEEP_TIME;
 
-    if (timeDelta < MAX_REQUEST_LIMIT_EXHAUSTION_TIME)
+    if (timeDelta > MAX_REQUEST_LIMIT_EXHAUSTION_TIME)
         timeout = MAX_REQUEST_LIMIT_EXHAUSTION_TIME - timeDelta - 60; // we add an addition one minute 
     return timeout;
 }
@@ -189,7 +189,7 @@ async function pollByDistrictId() {
 
 async function sendNotificationToUser(user, center, session) {
    
-    // if ((user.lastNotified && DateTime.now().diff(DateTime.fromISO(user.lastNotified), 'seconds') >= USER_NOTIFICATION_TIME_DELAY) || user.lastNotified == null) {
+    // if ((user.lastNotified && DateTime.now().diff(DateTime.fromISO(user.lastNotified), 'seconds').seconds >= USER_NOTIFICATION_TIME_DELAY) || user.lastNotified == null) {
     // }
 
     getTelegramBot().telegram.sendMessage(user.telegramId, `*${center.name}* has *${session.available_capacity}* vacant slots\\. Hurry up\\!`, { parse_mode: "MarkdownV2" })

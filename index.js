@@ -45,6 +45,7 @@ const CONVERSATION_STEPS = {
     INPUT_STATE_NAME: 'INPUT_STATE_NAME',
     INPUT_DISTRICT_NAME: 'INPUT_DISTRICT_NAME',
     INPUT_PINCODE: 'INPUT_PINCODE',
+    INPUT_AGE: 'INPUT_AGE',
     INPUT_ACQUIRED_SUCCESSFULLY: 'INPUT_ACQUIRED_SUCCESSFULLY',
     NO_INPUT_PRESENT: 'NO_INPUT_PRESENT'
 }
@@ -269,7 +270,7 @@ async function handleStateInput(ctx, user) {
             }
         })
 
-        ctx.replyWithMarkdown(`Great! Your state has been set to *${stateInput.trim()}*. Please type the name of the district now.`,{
+        ctx.replyWithMarkdown(`Great! Your state has been set to *${stateInput.trim()}*. Please type the name of the district now.`, {
         })
 
     } else {
@@ -298,15 +299,13 @@ async function handleDistrictInput(ctx, user) {
                 districtId: districtMatch.district_id,
                 ConversationState: {
                     update: {
-                        conversationStep: CONVERSATION_STEPS.INPUT_ACQUIRED_SUCCESSFULLY
+                        conversationStep: CONVERSATION_STEPS.INPUT_AGE
                     }
                 }
             }
         })
-
         ctx.replyWithMarkdown(`Great! Your district has been set to *${districtInput.trim()}*.`)
         showAgeSelectKeyboard(ctx)
-
     } else {
         const searchResult = fuseDistricts.search(districtInput.trim())
         ctx.replyWithMarkdown(`Oops! Did you mean *${searchResult[0].item.district_name}*? Please re-enter your district name.`)
@@ -330,11 +329,12 @@ async function handlePinCodeInput(ctx, user) {
                 pincode: pincodeData.pincode,
                 ConversationState: {
                     update: {
-                        conversationStep: CONVERSATION_STEPS.INPUT_ACQUIRED_SUCCESSFULLY
+                        conversationStep: CONVERSATION_STEPS.INPUT_AGE
                     }
                 }
             }
         })
+        ctx.replyWithMarkdown(`Great! Your pincode has been set to *${pincodeData.pincode}*.`)
         showAgeSelectKeyboard(ctx)
     } else {
         ctx.reply(`Oops! No such pincode exists. Please retry.`)
@@ -350,45 +350,36 @@ function showAgeSelectKeyboard(ctx) {
             Markup.button.callback('Both', 'both_age_select')]));
 }
 
+function setAgePreference(ctx, agePreference) {
+    await prisma.user.update({
+        where: {
+            telegramId: ctx.from.id
+        },
+        data: {
+            agePreference: agePreference,
+            ConversationState: {
+                update: {
+                    conversationStep: CONVERSATION_STEPS.INPUT_ACQUIRED_SUCCESSFULLY
+                }
+            }
+        }
+    })
+    ctx.reply('All done! Please wait while I save your preferences.')
+    ctx.reply('Preferences saved! You will be notified as soon as the slot opens.Stay tuned!. 😎')
+}
+
 
 bot.action('45_plus_age_select', async (ctx) => {
     ctx.answerCbQuery();
-    await prisma.user.update({
-        where: {
-            telegramId: ctx.from.id
-        },
-        data: {
-            agePreference: AGE_PREFERENCE.FORTYFIVE_PLUS
-        }
-    })
-    ctx.reply('All done! Please wait while I save your preferences.')
-    ctx.reply('Preferences saved! You will be notified as soon as the slot opens.Stay tuned!. 😎')
+    setAgePreference(ctx, AGE_PREFERENCE.FORTYFIVE_PLUS)
 })
 bot.action('18_plus_age_select', async (ctx) => {
     ctx.answerCbQuery();
-    await prisma.user.update({
-        where: {
-            telegramId: ctx.from.id
-        },
-        data: {
-            agePreference: AGE_PREFERENCE.EIGHTEEN_PLUS
-        }
-    })
-    ctx.reply('All done! Please wait while I save your preferences.')
-    ctx.reply('Preferences saved! You will be notified as soon as the slot opens.Stay tuned!. 😎')
+    setAgePreference(ctx, AGE_PREFERENCE.EIGHTEEN_PLUS);
 })
 bot.action('both_age_select', async (ctx) => {
     ctx.answerCbQuery();
-    await prisma.user.update({
-        where: {
-            telegramId: ctx.from.id
-        },
-        data: {
-            agePreference: AGE_PREFERENCE.BOTH
-        }
-    })
-    ctx.reply('All done! Please wait while I save your preferences.')
-    ctx.reply('Preferences saved! You will be notified as soon as the slot opens.Stay tuned!. 😎')
+    setAgePreference(ctx, AGE_PREFERENCE.BOTH)
 });
 
 (async () => {
