@@ -350,7 +350,7 @@ function showAgeSelectKeyboard(ctx) {
             Markup.button.callback('Both', 'both_age_select')]));
 }
 
-function setAgePreference(ctx, agePreference) {
+async function setAgePreference(ctx, agePreference) {
     await prisma.user.update({
         where: {
             telegramId: ctx.from.id
@@ -371,15 +371,15 @@ function setAgePreference(ctx, agePreference) {
 
 bot.action('45_plus_age_select', async (ctx) => {
     ctx.answerCbQuery();
-    setAgePreference(ctx, AGE_PREFERENCE.FORTYFIVE_PLUS)
+    await setAgePreference(ctx, AGE_PREFERENCE.FORTYFIVE_PLUS)
 })
 bot.action('18_plus_age_select', async (ctx) => {
     ctx.answerCbQuery();
-    setAgePreference(ctx, AGE_PREFERENCE.EIGHTEEN_PLUS);
+    await setAgePreference(ctx, AGE_PREFERENCE.EIGHTEEN_PLUS);
 })
 bot.action('both_age_select', async (ctx) => {
     ctx.answerCbQuery();
-    setAgePreference(ctx, AGE_PREFERENCE.BOTH)
+    await setAgePreference(ctx, AGE_PREFERENCE.BOTH)
 });
 
 (async () => {
