@@ -188,12 +188,13 @@ async function pollByDistrictId() {
 }
 
 async function sendNotificationToUser(user, center, session) {
-   
+
     // if ((user.lastNotified && DateTime.now().diff(DateTime.fromISO(user.lastNotified), 'seconds').seconds >= USER_NOTIFICATION_TIME_DELAY) || user.lastNotified == null) {
     // }
 
-    getTelegramBot().telegram.sendMessage(user.telegramId, `*${center.name}* located at *${center.address}* has`+
-    ` *${session.available_capacity}* vacant slots\\. Hurry up\\!`, { parse_mode: "MarkdownV2" })
+    getTelegramBot().telegram.sendMessage(user.telegramId,
+        `*${center.name}* located at *${center.address}* has ` +
+        `*${session.available_capacity}* vacant slots\\. Hurry up\\!`, { parse_mode: "MarkdownV2" })
     await prisma.user.update({
         where: {
             id: user.id
