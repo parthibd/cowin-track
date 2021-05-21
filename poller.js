@@ -86,6 +86,12 @@ export async function pollData() {
         requestEndTime = DateTime.now()
     } catch (error) {
         requestEndTime = DateTime.now()
+        
+        /*
+        pollerTimeoutSet prevents calling setTimeout multiple times preventing poller from 
+        being instatiated multiple times
+        */
+       
         if (!pollerTimeoutSet) {
             pollerTimeoutSet = true;
             setTimeout(async () => {
