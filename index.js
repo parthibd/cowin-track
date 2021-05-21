@@ -7,7 +7,12 @@ import { Telegraf, Markup } from 'telegraf'
 import _ from 'lodash'
 import pincodeDirectory from 'india-pincode-lookup'
 import { setTelegramBot, pollData } from './poller.js'
-import { AGE_PREFERENCE, optionsDistrictsSearch, optionsStatesSearch, CONVERSATION_STEPS } from './constants.js'
+import {
+    AGE_PREFERENCE,
+    optionsDistrictsSearch,
+    optionsStatesSearch,
+    CONVERSATION_STEPS
+} from './constants.js'
 const { PrismaClient } = prismaPackage
 
 const prisma = new PrismaClient()
