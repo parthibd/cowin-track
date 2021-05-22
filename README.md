@@ -16,3 +16,7 @@ Telegram bot to track vacant vaccine slots according to pincode or district and 
 3. Change `DATABASE_URL` in the format ```mysql://USER:PASSWORD@HOST:PORT/DATABASE``` according to your needs.
 4. ```yarn```
 5. You are done!
+
+# Note
+
+There will be no versioned releases as such as this bot is always a work in progress. Always sync with the master branch.
