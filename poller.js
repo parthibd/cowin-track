@@ -2,7 +2,8 @@ import {
     POLLER_FALLBACK_SLEEP_TIME,
     MAX_REQUESTS_LIMIT,
     MAX_REQUEST_LIMIT_EXHAUSTION_TIME,
-    AGE_PREFERENCE_PRISMA_CONDITION
+    AGE_PREFERENCE_PRISMA_CONDITION,
+    SUBSEQUENT_REQUEST_DELAY
 } from './constants.js'
 import { DateTime } from 'luxon'
 import prismaPackage from '@prisma/client'
@@ -129,6 +130,7 @@ async function pollByPincode() {
             const element = pincodesToSearch.shift();
             lastElement = element;
             let centers = await searchCalendarByPin(element.pincode, currentDate)
+            await delay(SUBSEQUENT_REQUEST_DELAY);
             ++requestCount;
             console.log(`Last request count: ${requestCount}`)
             let users = [];
@@ -171,6 +173,7 @@ async function pollByDistrictId() {
             const element = districtIdsToSearch.shift();
             lastElement = element;
             let centers = await searchCalendarByDistrict(element.districtId, currentDate)
+            await delay(SUBSEQUENT_REQUEST_DELAY);
             ++requestCount;
             console.log(`Last request count: ${requestCount}`)
             let users = [];
@@ -217,4 +220,8 @@ async function sendNotificationToUser(user, center, session) {
             lastNotified: DateTime.now().toISO()
         }
     });
+}
+
+function delay(t) {
+    return new Promise(resolve => setTimeout(resolve, t));
 }
