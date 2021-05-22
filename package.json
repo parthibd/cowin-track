@@ -8,11 +8,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/nestguwahati/cowin-track.git"
+    "url": "git+ssh://git@github.com:parthibd/cowin-track.git"
   },
   "author": "Parthib Dutta",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/nestguwahati/cowin-track#readme",
+  "homepage": "https://github.com/parthibd/cowin-track#readme",
   "dependencies": {
     "@prisma/client": "2.22.1",
     "axios": "^0.21.1",
