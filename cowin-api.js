@@ -1,4 +1,5 @@
 import axios from "axios";
+import { COWIN_AXIOS_HEADERS } from './constants.js'
 
 
 export async function searchCalendarByPin(pincode, date) {
@@ -8,9 +9,7 @@ export async function searchCalendarByPin(pincode, date) {
     }).toString();
 
     const { data } = await axios.get(`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?${queryParams}`, {
-        headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36 Edg/90.0.818.62'
-        }
+        headers: COWIN_AXIOS_HEADERS
     });
     return data.centers
 }
@@ -22,9 +21,7 @@ export async function searchCalendarByDistrict(districtId, date) {
     }).toString();
 
     const { data } = await axios.get(`ttps://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?${queryParams}`, {
-        headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36 Edg/90.0.818.62'
-        }
+        headers: COWIN_AXIOS_HEADERS
     })
     return data.centers;
 }
