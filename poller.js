@@ -130,7 +130,7 @@ async function pollByPincode() {
             const element = pincodesToSearch.shift();
             lastElement = element;
             let centers = await searchCalendarByPin(element.pincode, currentDate)
-            await delay(SUBSEQUENT_REQUEST_DELAY);
+            await delay(SUBSEQUENT_REQUEST_DELAY * 1000);
             ++requestCount;
             console.log(`Last request count: ${requestCount}`)
             let users = [];
@@ -173,7 +173,7 @@ async function pollByDistrictId() {
             const element = districtIdsToSearch.shift();
             lastElement = element;
             let centers = await searchCalendarByDistrict(element.districtId, currentDate)
-            await delay(SUBSEQUENT_REQUEST_DELAY);
+            await delay(SUBSEQUENT_REQUEST_DELAY * 1000);
             ++requestCount;
             console.log(`Last request count: ${requestCount}`)
             let users = [];
