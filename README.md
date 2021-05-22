@@ -12,10 +12,11 @@ Telegram bot to track vacant vaccine slots according to pincode or district and 
 # Installation
 
 1. Copy `.env.example` to `.env`.
-2. Change `BOT_TOKEN` to the auth token for your bot provided by **BotFather**.
-3. Change `DATABASE_URL` in the format ```mysql://USER:PASSWORD@HOST:PORT/DATABASE``` according to your needs.
-4. ```yarn```
-5. You are done!
+2. Make the following changes in the `.env` environment file.
+3. Change `BOT_TOKEN` to the auth token for your bot provided by **BotFather**.
+4. Change `DATABASE_URL` in the format ```mysql://USER:PASSWORD@HOST:PORT/DATABASE``` according to your needs.
+5. ```yarn```
+6. You are done!
 
 # Note
 
