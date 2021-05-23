@@ -208,18 +208,78 @@ async function sendNotificationToUser(user, center, session) {
     // if ((user.lastNotified && DateTime.now().diff(DateTime.fromISO(user.lastNotified), 'seconds').seconds >= USER_NOTIFICATION_TIME_DELAY) || user.lastNotified == null) {
     // }
 
-    getTelegramBot().telegram.sendMessage(user.telegramId,
-        `*${center.name}* located at *${center.address}* has ` +
-        `*${session.available_capacity}* vacant slots for minimum age limit of ` +
-        `*${session.min_age_limit}\\+*\\. Hurry up\\!`, { parse_mode: "MarkdownV2" })
-    await prisma.user.update({
+    let hasBeenNotified = false;
+
+    let userNotificationDetails = await prisma.userNotificationDetail.findMany({
         where: {
-            id: user.id
-        },
-        data: {
-            lastNotified: DateTime.now().toISO()
+            userId: user.id,
+            centerId: center.center_id,
+            minimumAgeLimit: session.min_age_limit,
+            availableCapacity: session.availableCapacity,
+            dateOfVaccination: DateTime.fromFormat('dd-MM-yyyy', session.date).toISO()
         }
     });
+
+    let userNotificationDetail = _.first(userNotificationDetails);
+
+    // He has not been notified yet or with the same data.
+    if (userNotificationDetail == null) {
+        getTelegramBot().telegram.sendMessage(user.telegramId,
+            `*${center.name}* located at *${center.address}* has ` +
+            `*${session.available_capacity}* vacant slots for minimum age limit of ` +
+            `*${session.min_age_limit}\\+*\\. Hurry up\\!`, { parse_mode: "MarkdownV2" })
+
+        await prisma.user.update({
+            where: {
+                id: user.id
+            },
+            data: {
+                lastNotified: DateTime.now().toISO()
+            }
+        });
+
+        hasBeenNotified = true;
+    }
+
+    //Now we have to figure out if he has been notified with updated data of a center or entirely new data
+    if (hasBeenNotified) {
+
+        //If its updated data, only the availability of slots might have changed.
+        let details = await prisma.userNotificationDetail.findMany({
+            where: {
+                userId: user.id,
+                centerId: center.center_id,
+                minimumAgeLimit: session.min_age_limit,
+                dateOfVaccination: DateTime.fromFormat('dd-MM-yyyy', session.date).toISO()
+            }
+        });
+
+        let detail = _.first(details);
+
+        //Data exists but has been updated
+        if (detail) {
+            await prisma.userNotificationDetail.update({
+                where: {
+                    id: detail.id
+                },
+                data: {
+                    availableCapacity: session.availableCapacity,
+                }
+            })
+        }
+        //Entirely new data
+        else {
+            await prisma.userNotificationDetail.create({
+                data: {
+                    userId: user.id,
+                    centerId: center.center_id,
+                    minimumAgeLimit: session.min_age_limit,
+                    availableCapacity: session.availableCapacity,
+                    dateOfVaccination: DateTime.fromFormat('dd-MM-yyyy', session.date).toISO()
+                }
+            })
+        }
+    }
 }
 
 function delay(t) {

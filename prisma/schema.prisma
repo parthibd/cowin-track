@@ -18,12 +18,23 @@ model ConversationState {
 }
 
 model User {
-  id                Int                @id @default(autoincrement())
-  telegramId        Int                @unique
-  agePreference     String?
-  pincode           Int?
-  stateId           Int?
-  districtId        Int?
-  ConversationState ConversationState?
-  lastNotified      DateTime?
+  id                     Int                      @id @default(autoincrement())
+  telegramId             Int                      @unique
+  agePreference          String?
+  pincode                Int?
+  stateId                Int?
+  districtId             Int?
+  ConversationState      ConversationState?
+  lastNotified           DateTime?
+  UserNotificationDetail UserNotificationDetail[]
+}
+
+model UserNotificationDetail {
+  id                Int      @id @default(autoincrement())
+  userId            Int
+  centerId          Int
+  minimumAgeLimit   Int
+  availableCapacity Int
+  dateOfVaccination DateTime
+  User              User     @relation(fields: [userId], references: [id])
 }
