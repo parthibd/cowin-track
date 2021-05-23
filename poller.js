@@ -8,6 +8,7 @@ import {
 import { DateTime } from 'luxon'
 import prismaPackage from '@prisma/client'
 import { searchCalendarByDistrict, searchCalendarByPin } from './cowin-api.js';
+import _ from 'lodash'
 const { PrismaClient } = prismaPackage
 
 const pincodesToSearch = [];
@@ -205,9 +206,6 @@ async function pollByDistrictId() {
 
 async function sendNotificationToUser(user, center, session) {
 
-    // if ((user.lastNotified && DateTime.now().diff(DateTime.fromISO(user.lastNotified), 'seconds').seconds >= USER_NOTIFICATION_TIME_DELAY) || user.lastNotified == null) {
-    // }
-
     let hasBeenNotified = false;
 
     let userNotificationDetails = await prisma.userNotificationDetail.findMany({
@@ -215,14 +213,15 @@ async function sendNotificationToUser(user, center, session) {
             userId: user.id,
             centerId: center.center_id,
             minimumAgeLimit: session.min_age_limit,
-            availableCapacity: session.availableCapacity,
-            dateOfVaccination: DateTime.fromFormat('dd-MM-yyyy', session.date).toISO()
+            availableCapacity: session.available_capacity,
+            dateOfVaccination: DateTime.fromFormat(session.date, 'dd-MM-yyyy').toISO()
         }
     });
 
     let userNotificationDetail = _.first(userNotificationDetails);
 
     // He has not been notified yet or with the same data.
+
     if (userNotificationDetail == null) {
         getTelegramBot().telegram.sendMessage(user.telegramId,
             `*${center.name}* located at *${center.address}* has ` +
@@ -250,7 +249,7 @@ async function sendNotificationToUser(user, center, session) {
                 userId: user.id,
                 centerId: center.center_id,
                 minimumAgeLimit: session.min_age_limit,
-                dateOfVaccination: DateTime.fromFormat('dd-MM-yyyy', session.date).toISO()
+                dateOfVaccination: DateTime.fromFormat(session.date, 'dd-MM-yyyy').toISO()
             }
         });
 
@@ -263,7 +262,7 @@ async function sendNotificationToUser(user, center, session) {
                     id: detail.id
                 },
                 data: {
-                    availableCapacity: session.availableCapacity,
+                    availableCapacity: session.available_capacity,
                 }
             })
         }
@@ -274,8 +273,8 @@ async function sendNotificationToUser(user, center, session) {
                     userId: user.id,
                     centerId: center.center_id,
                     minimumAgeLimit: session.min_age_limit,
-                    availableCapacity: session.availableCapacity,
-                    dateOfVaccination: DateTime.fromFormat('dd-MM-yyyy', session.date).toISO()
+                    availableCapacity: session.available_capacity,
+                    dateOfVaccination: DateTime.fromFormat(session.date, 'dd-MM-yyyy').toISO()
                 }
             })
         }
