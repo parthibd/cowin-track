@@ -226,7 +226,9 @@ async function sendNotificationToUser(user, center, session) {
         getTelegramBot().telegram.sendMessage(user.telegramId,
             `*${center.name}* located at *${center.address}* has ` +
             `*${session.available_capacity}* vacant slots for minimum age limit of ` +
-            `*${session.min_age_limit}\\+*\\. Hurry up\\!`, { parse_mode: "MarkdownV2" })
+            `*${session.min_age_limit}\\+*\\ for date ` +
+            `*${DateTime.fromFormat(session.date, 'dd-MM-yyyy').toLocaleString(DateTime.DATE_FULL)}*\\. Hurry up\\!`,
+            { parse_mode: "MarkdownV2" })
 
         await prisma.user.update({
             where: {
