@@ -214,6 +214,8 @@ async function sendNotificationToUser(user, center, session) {
             centerId: center.center_id,
             minimumAgeLimit: session.min_age_limit,
             availableCapacity: session.available_capacity,
+            vaccine: session.vaccine,
+            sessionId: session.session_id,
             dateOfVaccination: DateTime.fromFormat(session.date, 'dd-MM-yyyy').toISO()
         }
     });
@@ -227,7 +229,7 @@ async function sendNotificationToUser(user, center, session) {
             `*${center.name}* located at *${center.address}* has ` +
             `*${session.available_capacity}* vacant slots for minimum age limit of ` +
             `*${session.min_age_limit}\\+*\\ for date ` +
-            `*${DateTime.fromFormat(session.date, 'dd-MM-yyyy').toLocaleString(DateTime.DATE_FULL)}*\\. Hurry up\\!`,
+            `*${DateTime.fromFormat(session.date, 'dd-MM-yyyy').toLocaleString(DateTime.DATE_FULL)}*. Hurry up\\!`,
             { parse_mode: "MarkdownV2" })
 
         await prisma.user.update({
@@ -251,6 +253,8 @@ async function sendNotificationToUser(user, center, session) {
                 userId: user.id,
                 centerId: center.center_id,
                 minimumAgeLimit: session.min_age_limit,
+                vaccine: session.vaccine,
+                sessionId: session.session_id,
                 dateOfVaccination: DateTime.fromFormat(session.date, 'dd-MM-yyyy').toISO()
             }
         });
@@ -276,6 +280,8 @@ async function sendNotificationToUser(user, center, session) {
                     centerId: center.center_id,
                     minimumAgeLimit: session.min_age_limit,
                     availableCapacity: session.available_capacity,
+                    vaccine: session.vaccine,
+                    sessionId: session.session_id,
                     dateOfVaccination: DateTime.fromFormat(session.date, 'dd-MM-yyyy').toISO()
                 }
             })

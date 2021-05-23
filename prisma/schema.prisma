@@ -35,6 +35,8 @@ model UserNotificationDetail {
   centerId          Int
   minimumAgeLimit   Int
   availableCapacity Int
+  vaccine           String
+  sessionId         String
   dateOfVaccination DateTime
   User              User     @relation(fields: [userId], references: [id])
 }
