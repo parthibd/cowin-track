@@ -4,6 +4,15 @@
 
 Telegram bot to track vacant vaccine slots according to pincode or district and notify user as soon as they become available.
 
+# Features
+
+1. Notify by pincode
+2. Notify by district
+3. No flooding with notifications, notified only when new or updated data is available.
+5. Very active, frequently checks for data.
+4. Cares about CoWin, has multiple checks in place so that we do not flood the servers with requests and puts additional strain.
+5. Made with ❤️ in India. 🦚
+
 # Requirements
 
 1. Node.js 14
