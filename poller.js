@@ -3,7 +3,8 @@ import {
     MAX_REQUESTS_LIMIT,
     MAX_REQUEST_LIMIT_EXHAUSTION_TIME,
     AGE_PREFERENCE_PRISMA_CONDITION,
-    SUBSEQUENT_REQUEST_DELAY
+    SUBSEQUENT_REQUEST_DELAY,
+    COWIN_DATE_FORMAT
 } from './constants.js'
 import { DateTime } from 'luxon'
 import prismaPackage from '@prisma/client'
@@ -120,7 +121,7 @@ function calculateTimeout(is403 = false) {
 
 async function pollByPincode() {
 
-    let currentDate = DateTime.now().toFormat('dd-MM-yyyy');
+    let currentDate = DateTime.now().toFormat(COWIN_DATE_FORMAT);
     const count = pincodesToSearch.length;
     let lastElement;
 
@@ -163,7 +164,7 @@ async function pollByPincode() {
 }
 
 async function pollByDistrictId() {
-    let currentDate = DateTime.now().toFormat('dd-MM-yyyy');
+    let currentDate = DateTime.now().toFormat(COWIN_DATE_FORMAT);
     const count = districtIdsToSearch.length;
     let lastElement;
 
@@ -216,7 +217,7 @@ async function sendNotificationToUser(user, center, session) {
             availableCapacity: session.available_capacity,
             vaccine: session.vaccine,
             sessionId: session.session_id,
-            dateOfVaccination: DateTime.fromFormat(session.date, 'dd-MM-yyyy').toISO()
+            dateOfVaccination: DateTime.fromFormat(session.date, COWIN_DATE_FORMAT).toISO()
         }
     });
 
@@ -229,7 +230,7 @@ async function sendNotificationToUser(user, center, session) {
             `*${center.name}* located at *${center.address}* has ` +
             `*${session.available_capacity}* vacant slots for minimum age limit of ` +
             `*${session.min_age_limit}\\+*\\ for date ` +
-            `*${DateTime.fromFormat(session.date, 'dd-MM-yyyy').toLocaleString(DateTime.DATE_FULL)}*. Hurry up\\!`,
+            `*${DateTime.fromFormat(session.date, COWIN_DATE_FORMAT).toLocaleString(DateTime.DATE_FULL)}*. Hurry up\\!`,
             { parse_mode: "MarkdownV2" })
 
         await prisma.user.update({
@@ -255,7 +256,7 @@ async function sendNotificationToUser(user, center, session) {
                 minimumAgeLimit: session.min_age_limit,
                 vaccine: session.vaccine,
                 sessionId: session.session_id,
-                dateOfVaccination: DateTime.fromFormat(session.date, 'dd-MM-yyyy').toISO()
+                dateOfVaccination: DateTime.fromFormat(session.date, COWIN_DATE_FORMAT).toISO()
             }
         });
 
@@ -282,7 +283,7 @@ async function sendNotificationToUser(user, center, session) {
                     availableCapacity: session.available_capacity,
                     vaccine: session.vaccine,
                     sessionId: session.session_id,
-                    dateOfVaccination: DateTime.fromFormat(session.date, 'dd-MM-yyyy').toISO()
+                    dateOfVaccination: DateTime.fromFormat(session.date, COWIN_DATE_FORMAT).toISO()
                 }
             })
         }
