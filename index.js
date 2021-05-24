@@ -181,6 +181,22 @@ bot.action('notify_by_pincode', async (ctx) => {
     ctx.reply('Great! Please enter your pincode.')
 })
 
+bot.action(/age_select_([0-9]*_*[a-z]+)/, async (ctx) => {
+    switch (ctx.match[1]) {
+        case '45_plus':
+            await setAgePreference(ctx, AGE_PREFERENCE.FORTYFIVE_PLUS)
+            break;
+        case '18_plus':
+            await setAgePreference(ctx, AGE_PREFERENCE.EIGHTEEN_PLUS);
+            break;
+        case 'both':
+            await setAgePreference(ctx, AGE_PREFERENCE.BOTH)
+            break;
+    }
+    ctx.answerCbQuery();
+
+})
+
 bot.on('message', async (ctx) => {
 
     const user = await prisma.user.findFirst({
@@ -323,9 +339,9 @@ async function handlePinCodeInput(ctx, user) {
 function showAgeSelectKeyboard(ctx) {
     ctx.reply('Final step! Please select you age preference.',
         Markup.inlineKeyboard([
-            Markup.button.callback('45+', '45_plus_age_select'),
-            Markup.button.callback('18+', '18_plus_age_select'),
-            Markup.button.callback('Both', 'both_age_select')]));
+            Markup.button.callback('45+', 'age_select_45_plus'),
+            Markup.button.callback('18+', 'age_select_18_plus'),
+            Markup.button.callback('Both', 'age_select_both')]));
 }
 
 async function setAgePreference(ctx, agePreference) {
@@ -342,23 +358,11 @@ async function setAgePreference(ctx, agePreference) {
             }
         }
     })
+    ctx.replyWithMarkdown(`Great! Your age preference has been set.`)
     ctx.reply('All done! Please wait while I save your preferences.')
     ctx.reply('Preferences saved! You will be notified as soon as the slot opens.Stay tuned!. 😎')
 }
 
-
-bot.action('45_plus_age_select', async (ctx) => {
-    ctx.answerCbQuery();
-    await setAgePreference(ctx, AGE_PREFERENCE.FORTYFIVE_PLUS)
-})
-bot.action('18_plus_age_select', async (ctx) => {
-    ctx.answerCbQuery();
-    await setAgePreference(ctx, AGE_PREFERENCE.EIGHTEEN_PLUS);
-})
-bot.action('both_age_select', async (ctx) => {
-    ctx.answerCbQuery();
-    await setAgePreference(ctx, AGE_PREFERENCE.BOTH)
-});
 
 (async () => {
     await pollData();
